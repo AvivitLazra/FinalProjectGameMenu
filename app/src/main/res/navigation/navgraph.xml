@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/loginfrag">
+
+    <fragment
+        android:id="@+id/homefrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Homefrag"
+        android:label="fragment_homefrag"
+        tools:layout="@layout/homefrag" >
+        <action
+            android:id="@+id/action_homefrag_to_favoritesfrag"
+            app:destination="@id/favoritesfrag" />
+        <action
+            android:id="@+id/action_homefrag_to_exploreGamesfrag"
+            app:destination="@id/exploreGamesfrag" />
+        <action
+            android:id="@+id/action_homefrag_to_friendsfrag"
+            app:destination="@id/friendsfrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Registerfrag"
+        android:label="fragment_registerfrag"
+        tools:layout="@layout/registerfrag" >
+        <action
+            android:id="@+id/action_registerfrag_to_homefrag"
+            app:destination="@id/homefrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Loginfrag"
+        android:label="fragment_loginfrag"
+        tools:layout="@layout/loginfrag" >
+        <action
+            android:id="@+id/action_loginfrag_to_registerfrag"
+            app:destination="@id/registerfrag" />
+        <action
+            android:id="@+id/action_loginfrag_to_homefrag"
+            app:destination="@id/homefrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Chatfrag"
+        android:label="chatfrag"
+        tools:layout="@layout/chatfrag" />
+    <fragment
+        android:id="@+id/exploreGamesfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.ExploreGamesfrag"
+        android:label="explore_gamesfrag"
+        tools:layout="@layout/explore_gamesfrag" >
+        <action
+            android:id="@+id/action_exploreGamesfrag_to_chatfrag"
+            app:destination="@id/chatfrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Favoritesfrag"
+        android:label="favoritesfrag"
+        tools:layout="@layout/favoritesfrag" >
+        <action
+            android:id="@+id/action_favoritesfrag_to_chatfrag"
+            app:destination="@id/chatfrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsfrag"
+        android:name="com.example.finalprojectgamemenu.fragments.Friendsfrag"
+        android:label="friendsfrag"
+        tools:layout="@layout/friendsfrag" />
+</navigation>

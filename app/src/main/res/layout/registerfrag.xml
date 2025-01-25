@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/register"
+android:gravity="center"
+android:orientation="vertical"
+tools:context=".fragments.Registerfrag">
+
+
+<!-- TODO: Update blank fragment layout -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="16dp"
+    android:text="Register"
+    android:textColor="#FFFFFF"
+    android:textSize="34sp" />
+
+<EditText
+    android:id="@+id/EmailAddress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Enter your email address"
+    android:inputType="textEmailAddress"
+    android:padding="12dp"
+    android:textColor="#FFFFFF"
+    android:textColorHint="#DDDDDD"
+    android:textSize="24sp" />
+
+<EditText
+    android:id="@+id/Password"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Enter your password"
+    android:inputType="textPassword"
+    android:padding="12dp"
+    android:textColor="#FFFFFF"
+    android:textColorHint="#DDDDDD"
+    android:textSize="24sp" />
+
+<EditText
+    android:id="@+id/rePassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Enter your password again"
+    android:inputType="textPassword"
+    android:padding="12dp"
+    android:textColor="#FFFFFF"
+    android:textColorHint="#DDDDDD"
+    android:textSize="24sp" />
+
+<EditText
+    android:id="@+id/editTextPhone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:digits="0123456789"
+    android:hint="Enter your phone number"
+    android:inputType="phone"
+    android:padding="12dp"
+    android:textColor="#FFFFFF"
+    android:textColorHint="#DDDDDD"
+    android:textSize="24sp" />
+
+<Button
+    android:id="@+id/backtoregister"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="32dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="32dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/button"
+    android:text="Register"
+    android:textColor="#00BFFF"
+    android:textSize="30sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="32dp"
+    tools:context=".fragments.Homefrag">
+
+    <TextView
+        android:id="@+id/textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="👋 Hello, Dummy User"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:paddingBottom="24dp"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        tools:text="👋 Hello, Dummy User" />
+
+    <Button
+        android:id="@+id/favoriteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="⭐ Favorite Games"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#FF8A65"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif" />
+
+    <Button
+        android:id="@+id/exploreBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🌍 Explore Games"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#64B5F6"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif" />
+
+    <Button
+        android:id="@+id/friendsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="👥 Friends"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#81C784"
+        android:padding="16dp"
+        android:fontFamily="sans-serif" />
+
+</LinearLayout>

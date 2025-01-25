@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289210747480",
+    "project_id": "finalprojectgamemenu",
+    "storage_bucket": "finalprojectgamemenu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289210747480:android:f61f8dc041da218d77182d",
+        "android_client_info": {
+          "package_name": "com.example.finalprojectgamemenu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5wjj9ZFf44j_1Aag4xEo9qciL3QCXAIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
