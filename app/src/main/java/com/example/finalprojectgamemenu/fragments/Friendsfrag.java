@@ -3,12 +3,20 @@ package com.example.finalprojectgamemenu.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.finalprojectgamemenu.R;
+import com.example.finalprojectgamemenu.models.FriendDetails;
+import com.example.finalprojectgamemenu.models.FriendsAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +69,30 @@ public class Friendsfrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.friendsfrag, container, false);
+        View view =  inflater.inflate(R.layout.friendsfrag, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.friends_recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        ArrayList<FriendDetails> mockData = new ArrayList<>();
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        String[] mockFriendsNames = {"John","Elizabeth", "Tim","Avivit","David"};
+        String[] mockFriendsIDs = {"JohnID","ElizabethID", "TimID","AvivitID","DavidID"};
+
+        for(int i = 0; i< mockFriendsNames.length; i++){
+            Log.d("ItemCollection","Collecting items...");
+            mockData.add(new FriendDetails(
+                    mockFriendsNames[i],
+                    mockFriendsIDs[i]
+            ));
+        }
+        // Since we implement the listener, we set this as the listener of the adapter.
+        FriendsAdapter adapter = new FriendsAdapter(mockData);
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
+
 }

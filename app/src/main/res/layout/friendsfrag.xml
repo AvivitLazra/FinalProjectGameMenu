@@ -3,5 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/friends"
-    tools:context=".fragments.Friendsfrag"/>
+    android:background="@raw/friends"
+    tools:context=".fragments.Friendsfrag">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friends_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

@@ -1,82 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/register"
-android:gravity="center"
-android:orientation="vertical"
-tools:context=".fragments.Registerfrag">
-
-
-<!-- TODO: Update blank fragment layout -->
-<TextView
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@raw/register"
     android:gravity="center"
-    android:paddingBottom="16dp"
-    android:text="Register"
-    android:textColor="#FFFFFF"
-    android:textSize="34sp" />
+    android:orientation="vertical"
+    tools:context=".fragments.Registerfrag">
 
-<EditText
-    android:id="@+id/EmailAddress"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Enter your email address"
-    android:inputType="textEmailAddress"
-    android:padding="12dp"
-    android:textColor="#FFFFFF"
-    android:textColorHint="#DDDDDD"
-    android:textSize="24sp" />
 
-<EditText
-    android:id="@+id/Password"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Enter your password"
-    android:inputType="textPassword"
-    android:padding="12dp"
-    android:textColor="#FFFFFF"
-    android:textColorHint="#DDDDDD"
-    android:textSize="24sp" />
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:paddingBottom="16dp"
+        android:text="@string/register_screen_title"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:shadowColor="#020202"
+        android:shadowDx="0.5"
+        android:shadowDy="0.5"
+        android:shadowRadius="15"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        />
 
-<EditText
-    android:id="@+id/rePassword"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Enter your password again"
-    android:inputType="textPassword"
-    android:padding="12dp"
-    android:textColor="#FFFFFF"
-    android:textColorHint="#DDDDDD"
-    android:textSize="24sp" />
+    <EditText
+        android:id="@+id/register_emailAddressField"
+        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:hint="@string/email_field_hint"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/text_input_hint"
+        android:background="@drawable/input_box_design"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints="emailAddress"
+        android:maxLength="30"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
-<EditText
-    android:id="@+id/editTextPhone"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:digits="0123456789"
-    android:hint="Enter your phone number"
-    android:inputType="phone"
-    android:padding="12dp"
-    android:textColor="#FFFFFF"
-    android:textColorHint="#DDDDDD"
-    android:textSize="24sp" />
+        <EditText
+            android:id="@+id/register_passwordField"
+            android:layout_height="50dp"
+            android:layout_width="350dp"
+            android:hint="@string/password_field_hint"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/text_input_hint"
+            android:background="@drawable/input_box_design"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center_horizontal"
+            android:autofillHints="password"
+            android:maxLength="30"
+            />
 
-<Button
-    android:id="@+id/backtoregister"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="32dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="32dp"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/button"
-    android:text="Register"
-    android:textColor="#00BFFF"
-    android:textSize="30sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_showPasswordBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/toggle_password_visibility_btn_desc"
+            android:layout_alignEnd="@id/register_passwordField"
+            android:text=""
+            android:background="@android:drawable/ic_menu_view"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/register_passwordAuthField"
+            android:layout_height="50dp"
+            android:layout_width="350dp"
+            android:hint="@string/password_auth_field_hint"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/text_input_hint"
+            android:background="@drawable/input_box_design"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center_horizontal"
+            android:autofillHints="password"
+            android:maxLength="30"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_showPasswordAuthBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignEnd="@id/register_passwordAuthField"
+            android:text=""
+            android:background="@android:drawable/ic_menu_view"
+            android:contentDescription="@string/toggle_password_visibility_btn_desc"
+            />
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/register_phoneField"
+        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:digits="0123456789"
+        android:hint="@string/phone_field_hint"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/input_box_design"
+        android:textColorHint="@color/text_input_hint"
+        android:textColor="#FFFFFF"
+        android:autofillHints="phone"
+        android:maxLength="10"
+    />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_register_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/register_screen_btn"
+        android:text="@string/register_screen_title"
+        android:elevation="6dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#FFFFFF"
+
+        />
 
 
 </LinearLayout>
+

@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/CardLayoutRes"
+    android:id="@+id/FriendCardRes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="DummyUser"
+            android:text="@string/friends_card_name"
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:padding="8dp"
@@ -35,7 +35,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="0"
-            app:srcCompat="@drawable/userlogo"
+            android:contentDescription="@string/friend_card_btn_desc"
+            app:srcCompat="@raw/userlogo"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             android:padding="8dp" />
