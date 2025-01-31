@@ -155,17 +155,30 @@ public class Friendsfrag extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 DatabaseReference addRef = null;
-
+                PackagedUser checkedUser;
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    PackagedUser checkedUser = snapshot.getValue(PackagedUser.class);
+                    checkedUser = snapshot.getValue(PackagedUser.class);
                     if(checkedUser.getUserId().equals(currentUser.getUid()))
                         addRef = snapshot.getRef().child("friends");
+                    else
+                        Log.d("add_user","1 add reference is at null!");
+
+                }
+
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    checkedUser = snapshot.getValue(PackagedUser.class);
+                    Log.d("add_user", "Checking user: " + checkedUser.getUserName() + " with ID: " + checkedUser.getUserId());
 
                     if(checkedUser.getUserName().equals(userName) && addRef!=null){
                         addRef.push().setValue(checkedUser);
                         Toast.makeText(getContext(), "Friend: " + userName + " added successfully.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    if (addRef == null){
+                        Log.d("add_user","2 add reference is at null!");
+                    }
+                    if(checkedUser.getUserName().equals(userName))
+                        Log.d("add_user", "User not matched with: userSearch = " + userName + " current user = " + checkedUser.getUserName());
 
                 }
                 Log.d("add_user","User not found in database.");
