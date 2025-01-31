@@ -61,7 +61,9 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="8dp"
             android:scaleType="centerInside"
-            app:srcCompat="@android:drawable/stat_notify_chat" />
+            app:srcCompat="@android:drawable/stat_notify_chat"
+            android:contentDescription="@string/card_game_btn"
+            />
 
     </LinearLayout>
 
