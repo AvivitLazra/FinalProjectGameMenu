@@ -3,12 +3,17 @@ package com.example.finalprojectgamemenu.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.finalprojectgamemenu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,8 @@ public class Homefrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private View view;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +68,25 @@ public class Homefrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.homefrag, container, false);
+        view = inflater.inflate(R.layout.homefrag, container, false);
+
+        //Setting user greeting message
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        TextView userGreeting = view.findViewById(R.id.home_userGreeting);
+        userGreeting.setText(getString(R.string.home_user_greeting, currentUser.getEmail().split("@")[0]));
+
+        //Retrieve buttons from layout
+        Button favoritesBtn = view.findViewById(R.id.favoriteBtn);
+        Button exploreBtn = view.findViewById(R.id.exploreBtn);
+        Button friendsBtn = view.findViewById(R.id.friendsBtn);
+
+        //Setting navigation listeners
+        favoritesBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_homefrag_to_favoritesfrag));
+        exploreBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_homefrag_to_exploreGamesfrag));
+        friendsBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_homefrag_to_friendsfrag));
+
+        return view;
     }
 }

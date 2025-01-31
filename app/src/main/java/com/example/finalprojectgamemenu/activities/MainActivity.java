@@ -1,6 +1,10 @@
 package com.example.finalprojectgamemenu.activities;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,5 +26,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void togglePassword(View view){
+        EditText passwordField = (EditText) view;
+
+        if (passwordField.getTransformationMethod() instanceof PasswordTransformationMethod) // Show password
+            passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        else // Hide password
+            passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
     }
 }

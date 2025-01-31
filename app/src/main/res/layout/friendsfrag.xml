@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/friends"
-    tools:context=".fragments.Friendsfrag"/>
+    android:background="@raw/friends"
+    android:orientation="vertical"
+    tools:context=".fragments.Friendsfrag">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friends_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="650dp" />
+
+    <Button
+        android:id="@+id/friends_addFriendBtn"
+        android:text="@string/add_friend_btn"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:elevation="6dp"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_marginHorizontal="2dp"
+        android:background="@drawable/login_screen_btn"
+        android:backgroundTint="#CC39FF14"
+        android:layout_marginVertical="5dp"
+        android:fontFamily="sans-serif"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

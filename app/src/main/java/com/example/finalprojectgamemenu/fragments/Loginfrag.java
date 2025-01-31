@@ -17,6 +17,7 @@ import com.example.finalprojectgamemenu.R;
 import com.example.finalprojectgamemenu.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -70,7 +71,7 @@ public class Loginfrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mAuth = FirebaseAuth.getInstance(); // אתחול FirebaseAuth
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -80,20 +81,19 @@ public class Loginfrag extends Fragment {
 
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.loginfrag, container, false);
-        Button register=view.findViewById(R.id.registerButton);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_loginfrag_to_registerfrag);
-            }
-        });
-        Button login =view.findViewById(R.id.loginButton);
-        login.setOnClickListener(new View.OnClickListener() {
+
+        //Set register button listener -- Lambda function (arrow function) rather then creating a new onClickListener.
+        Button registerBtn=view.findViewById(R.id.login_register_btn);
+        registerBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginfrag_to_registerfrag));
+
+        //Set login button listener
+        Button loginBtn =view.findViewById(R.id.login_login_btn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String email = ((EditText) view.findViewById(R.id.EmailAddress)).getText().toString();
-                String password = ((EditText) view.findViewById(R.id.Password)).getText().toString();
+                String email = ((EditText) view.findViewById(R.id.login_emailAddressField)).getText().toString();
+                String password = ((EditText) view.findViewById(R.id.login_passwordField)).getText().toString();
 
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
@@ -110,12 +110,25 @@ public class Loginfrag extends Fragment {
                                 }
                                 else {
                                     Toast.makeText(getContext(),"login failed",Toast.LENGTH_LONG).show();
+
+                                    //Added Snackbar for extra information
+                                    Snackbar candybar= Snackbar.make(view.getRootView(), task.getException().getMessage().toString(),Snackbar.LENGTH_LONG);
+                                    View snackbarView = candybar.getView();
+                                    TextView snackbarText = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                                    snackbarText.setMaxLines(10);
+                                    candybar.show();
                                 }
                             }
                         });
 
             }
         });
+
+        //Setting password visibility button listener
+        Button showPasswordBtn = view.findViewById(R.id.login_showPasswordBtn);
+        MainActivity mainRef = (MainActivity) getActivity();
+        showPasswordBtn.setOnClickListener(v -> mainRef.togglePassword(view.findViewById(R.id.login_passwordField)));
+
         return view;
     }
 }
