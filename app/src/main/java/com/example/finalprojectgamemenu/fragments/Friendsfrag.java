@@ -50,6 +50,7 @@ public class Friendsfrag extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
+    private RecyclerView recyclerView;
 
     public Friendsfrag() {
         // Required empty public constructor
@@ -90,25 +91,43 @@ public class Friendsfrag extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.friendsfrag, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.friends_recycler);
+        // RecyclerView setup
+        recyclerView = view.findViewById(R.id.friends_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        ArrayList<PackagedUser> mockData = new ArrayList<>();
+        //TODO: remove this mockData list.
+//        ArrayList<PackagedUser> mockData = new ArrayList<>();
+//
+//        String[] mockFriendsNames = {"John","Elizabeth", "Tim","Avivit","David"};
+//        String[] mockFriendsIDs = {"JohnID","ElizabethID", "TimID","AvivitID","DavidID"};
+//
+//        for(int i = 0; i< mockFriendsNames.length; i++){
+//            Log.d("ItemCollection","Collecting items...");
+//            mockData.add(new PackagedUser(
+//                    mockFriendsNames[i],
+//                    mockFriendsIDs[i]
+//            ));
+//        }
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        String[] mockFriendsNames = {"John","Elizabeth", "Tim","Avivit","David"};
-        String[] mockFriendsIDs = {"JohnID","ElizabethID", "TimID","AvivitID","DavidID"};
+        ArrayList<PackagedUser> userFriends = new ArrayList<>();
+        FriendsAdapter adapter = new FriendsAdapter(userFriends);
 
-        for(int i = 0; i< mockFriendsNames.length; i++){
-            Log.d("ItemCollection","Collecting items...");
-            mockData.add(new PackagedUser(
-                    mockFriendsNames[i],
-                    mockFriendsIDs[i]
-            ));
-        }
+        //
+        retrieveFriends(new FriendsCallback() {
+            @Override
+            public void onCallback(ArrayList<PackagedUser> friendList) {
+                userFriends.clear();
+                userFriends.addAll(friendList);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        for(PackagedUser user:userFriends)
+            Log.d("retrieve_users",user.getUserName());
+
         // Since we implement the listener, we set this as the listener of the adapter.
-        FriendsAdapter adapter = new FriendsAdapter(mockData);
+
         recyclerView.setAdapter(adapter);
 
         // Adding a listener to the Add Friend button
@@ -134,6 +153,7 @@ public class Friendsfrag extends Fragment {
                       }
                     }).setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog= builder.create();
+            //This is requesting keyboard focus
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             dialog.show();
 
@@ -149,21 +169,29 @@ public class Friendsfrag extends Fragment {
         assert currentUser != null;
         DatabaseReference usersRef = database.getReference("users");
 
-
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 DatabaseReference addRef = null;
-
+                PackagedUser checkedUser;
+                //Finding the user we want to add the friends too
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    PackagedUser checkedUser = snapshot.getValue(PackagedUser.class);
+                    checkedUser = snapshot.getValue(PackagedUser.class);
                     if(checkedUser.getUserId().equals(currentUser.getUid()))
                         addRef = snapshot.getRef().child("friends");
+
+                }
+                //Finding the user we want to add
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    checkedUser = snapshot.getValue(PackagedUser.class);
+                    Log.d("add_user", "Checking user: " + checkedUser.getUserName() + " with ID: " + checkedUser.getUserId());
 
                     if(checkedUser.getUserName().equals(userName) && addRef!=null){
                         addRef.push().setValue(checkedUser);
                         Toast.makeText(getContext(), "Friend: " + userName + " added successfully.", Toast.LENGTH_SHORT).show();
+                        FriendsAdapter adapter = (FriendsAdapter) recyclerView.getAdapter();
+                        adapter.addFriend(checkedUser);
                         return;
                     }
 
@@ -177,9 +205,75 @@ public class Friendsfrag extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
                 Log.w("add_user", "Failed to read value.", error.toException());
+
             }
         });
 
     }
+
+    public void retrieveFriends(FriendsCallback callback){
+        ArrayList<PackagedUser> friendList = new ArrayList<>();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DatabaseReference myRef = database.getReference("users");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            DatabaseReference friendListRef;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                PackagedUser checkedUser = null;
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    checkedUser = dataSnapshot.getValue(PackagedUser.class);
+                    if (checkedUser.getUserId().equals(currentUser.getUid()))
+                        friendListRef = dataSnapshot.getRef().child("friends");
+
+                }
+                if (friendListRef != null) {
+
+                    friendListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            PackagedUser addUser = null;
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                addUser = dataSnapshot.getValue(PackagedUser.class);
+                                if (addUser != null)
+                                    friendList.add(addUser);
+                            }
+                            callback.onCallback(friendList);
+
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.w("retrieve_friends", "Failed to read value.", error.toException());
+                        }
+                    });
+
+
+                } else {
+                    Log.w("retrieve_friends", "No friends reference found.");
+                    callback.onCallback(friendList);
+                }
+            }
+
+
+                @Override
+                public void onCancelled (@NonNull DatabaseError error){
+                    Log.w("retrieve_friends", "Failed to read value.", error.toException());
+                }
+
+        });
+
+
+
+    }
+
+    public interface FriendsCallback{
+        void onCallback(ArrayList<PackagedUser>friendList);
+    }
+
 
 }

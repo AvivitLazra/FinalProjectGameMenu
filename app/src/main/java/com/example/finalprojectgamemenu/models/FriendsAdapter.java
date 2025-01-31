@@ -1,6 +1,7 @@
 package com.example.finalprojectgamemenu.models;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalprojectgamemenu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -64,9 +72,67 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
     }
 
     public void removeFriend(int position){
-        friendsList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position,friendsList.size());
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        PackagedUser removeUser = friendsList.get(position);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+
+
+        Log.d("remove_friend","currentUser = " + currentUser.getUid());
+
+        //Loop for finding the user we want to remove the friend from
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                PackagedUser checkedUser = null;
+                DatabaseReference removeRef = null;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    checkedUser = dataSnapshot.getValue(PackagedUser.class);
+                    if (checkedUser.getUserId().equals(currentUser.getUid()))
+                        removeRef = dataSnapshot.getRef().child("friends");
+                }
+                if (removeRef != null) {
+                    removeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //Loop for finding the friend to remove
+                            PackagedUser findUser = null;
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                findUser = dataSnapshot.getValue(PackagedUser.class);
+                                if (findUser != null && findUser.getUserId().equals(removeUser.getUserId())) {
+                                    dataSnapshot.getRef().removeValue();
+                                    Log.d("remove_user", "user: " + findUser.getUserName() + " is being removed!!!!");
+                                    friendsList.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, friendsList.size());
+                                    return;
+
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.w("remove_user", "Failed to read value.", error.toException());
+                        }
+                    });
+                }
+            }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w("remove_user", "Failed to read value.", error.toException());
+                }
+
+        });
+
+    }
+
+    public void addFriend (PackagedUser friendUser){
+        int insertPosition = friendsList.size();
+        friendsList.add(friendUser);
+        notifyItemInserted(insertPosition);
     }
 
     @Override

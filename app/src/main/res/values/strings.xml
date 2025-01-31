@@ -21,4 +21,5 @@
     <string name="friend_card_btn_desc">Unfriend</string>
     <string name="add_friend_btn">Add Friend</string>
     <string name="add_friend_popup_hint">Enter friend\'s name</string>
+    <string name="card_game_btn">Chat now</string>
 </resources>
