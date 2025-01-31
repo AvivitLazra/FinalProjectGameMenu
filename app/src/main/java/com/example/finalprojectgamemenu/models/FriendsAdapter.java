@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHolder>{
 
-    private ArrayList<FriendDetails> friendsList;
+    private final ArrayList<PackagedUser> friendsList;
 
-    public FriendsAdapter(ArrayList<FriendDetails> friendsList){
+    public FriendsAdapter(ArrayList<PackagedUser> friendsList){
         this.friendsList = friendsList;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -38,7 +38,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
     }
 
     public static interface onCardContentClickListener{
-        void onCardButtonClick(FriendDetails friendDetails,View cardView);
+        void onCardButtonClick(PackagedUser friendDetails, View cardView);
     }
 
     @NonNull
@@ -53,7 +53,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         TextView textFriendName = holder.textFriendName;
         ImageButton friendRemoveBtn = holder.friendRemoveBtn;
         //This just looks very complicated, but I'm just getting the getString from the context of the view so I can input the friend name into the placeholder string resource..
-        textFriendName.setText(holder.itemView.getContext().getString(R.string.friends_card_name, friendsList.get(position).getFriendName()));
+        textFriendName.setText(holder.itemView.getContext().getString(R.string.friends_card_name, friendsList.get(position).getUserName()));
 
         //Setting button onClickListener
 

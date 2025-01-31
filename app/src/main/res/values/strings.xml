@@ -19,4 +19,6 @@
     <string name="home_user_greeting">Hello, %s</string>
     <string name="friends_card_name">%s</string>
     <string name="friend_card_btn_desc">Unfriend</string>
+    <string name="add_friend_btn">Add Friend</string>
+    <string name="add_friend_popup_hint">Enter friend\'s name</string>
 </resources>

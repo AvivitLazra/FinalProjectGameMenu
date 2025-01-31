@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,14 @@ import android.widget.Toast;
 
 import com.example.finalprojectgamemenu.R;
 import com.example.finalprojectgamemenu.activities.MainActivity;
+import com.example.finalprojectgamemenu.models.PackagedUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +100,9 @@ public class Registerfrag extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(),"register succeeded ",Toast.LENGTH_LONG).show();
+                                    FirebaseUser newUser = mAuth.getCurrentUser();
+                                    assert newUser != null;
+                                    registerUserDB(newUser);
                                     Navigation.findNavController(view).navigate(R.id.action_registerfrag_to_homefrag);
                                 } else {
                                     Toast.makeText(getContext(),"register failed",Toast.LENGTH_LONG).show();
@@ -113,5 +121,21 @@ public class Registerfrag extends Fragment {
         showPasswordAuthBtn.setOnClickListener(v -> mainRef.togglePassword(view.findViewById(R.id.register_passwordAuthField)));
 
         return view;
+    }
+
+    public void registerUserDB(FirebaseUser newUser){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        String userName = newUser.getEmail().split("@")[0];
+        String userID = newUser.getUid();
+
+        PackagedUser packagedUser = new PackagedUser(userName,userID);
+
+        myRef.push().setValue(packagedUser);
+
+        Log.d("success",
+                "User: "+ packagedUser + " packaged in database successfully.");
+
+
     }
 }
