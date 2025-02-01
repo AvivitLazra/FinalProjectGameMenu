@@ -22,4 +22,6 @@
     <string name="add_friend_btn">Add Friend</string>
     <string name="add_friend_popup_hint">Enter friend\'s name</string>
     <string name="card_game_btn">Chat now</string>
+    <string name="game_name">Game Name</string>
+
 </resources>
