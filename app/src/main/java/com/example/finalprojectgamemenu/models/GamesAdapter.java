@@ -42,7 +42,6 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
                 .inflate(R.layout.cardgame, parent, false);
         return new MyViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Games game = gameList.get(position);
