@@ -52,14 +52,14 @@
         <!-- כפתור צ'אט -->
         <ImageButton
             android:id="@+id/chatBtn"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
             android:padding="8dp"
             app:srcCompat="@android:drawable/stat_notify_chat"
-            app:tint="#673AB7"
-            android:contentDescription="@null"
-            android:importantForAccessibility="no" />
+            app:tint="#673AB7" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
