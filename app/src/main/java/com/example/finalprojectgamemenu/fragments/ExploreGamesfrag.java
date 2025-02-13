@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +29,13 @@ public class ExploreGamesfrag extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerViewGames);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         String[] gameNames = {
                 "Game Logo", "Sports World", "Cheese Bites", "Witch Craft", "Cloud Soccer",
                 "Space Racer", "Galaxy Frogs", "Vikings Go Berzerk", "Candy Crushers", "Sunday Party",
                 "Royal Palace", "Galaxy Frogs", "Racing Club", "Neon Noir", "Pumpkin Smash",
                 "Double Dragons", "Reptoids", "Power Plant", "Trolls Bridge", "Super Heroes"
         };
-
 
         int[] gameImages = {
                 R.drawable.game1, R.drawable.game2, R.drawable.game3, R.drawable.game4, R.drawable.game5,
@@ -50,7 +49,7 @@ public class ExploreGamesfrag extends Fragment {
             gameList.add(new Games(gameImages[i], gameNames[i]));
         }
 
-        adapter = new GamesAdapter(gameList);
+        adapter = new GamesAdapter(gameList, false); // ✅ שליחת false כדי לציין שזה מסך המשחקים הרגילים
         recyclerView.setAdapter(adapter);
 
         return view;
