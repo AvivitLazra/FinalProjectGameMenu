@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@raw/home"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:padding="32dp"
     tools:context=".fragments.Homefrag">
 
@@ -14,7 +14,7 @@
         android:id="@+id/home_userGreeting"
         android:layout_height="300dp"
         android:gravity="center"
-        android:shadowColor="#020202"
+        android:shadowColor="#D7D7D7"
         android:shadowDx="0.5"
         android:shadowDy="0.5"
         android:shadowRadius="15"

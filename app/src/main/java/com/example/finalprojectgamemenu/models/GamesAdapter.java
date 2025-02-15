@@ -1,5 +1,6 @@
 package com.example.finalprojectgamemenu.models;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalprojectgamemenu.R;
@@ -50,6 +52,10 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
         holder.gameImage.setImageResource(game.getgImage());
 
         holder.chatBtn.setOnClickListener(v -> {
+            Bundle argsBundle = new Bundle();
+            argsBundle.putString("gameChannel",game.getgName());
+            Navigation.findNavController(holder.itemView).navigate(R.id.action_exploreGamesfrag_to_chatfrag, argsBundle);
+
         });
     }
 

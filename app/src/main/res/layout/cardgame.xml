@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:radius="20dp"
-    app:cardBackgroundColor="#CCFFFFFF"> <!-- רקע שקוף למחצה -->
+    app:cardBackgroundColor="#CCFFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +15,8 @@
         android:gravity="center_vertical"
         android:padding="16dp"
         android:background="#F3E5F5"
-        android:elevation="8dp"> <!-- החלפת cardElevation ב-elevation רגיל -->
+        android:elevation="8dp">
 
-        <!-- כפתור הלב -->
         <Button
             android:id="@+id/heartBtn"
             android:layout_width="48dp"
@@ -28,7 +27,7 @@
             android:contentDescription="@null"
             android:importantForAccessibility="no" />
 
-        <!-- תמונת המשחק -->
+
         <ImageView
             android:id="@+id/gameImage"
             android:layout_width="60dp"
@@ -37,7 +36,7 @@
             android:scaleType="centerCrop"
             android:contentDescription="@null" />
 
-        <!-- שם המשחק -->
+
         <TextView
             android:id="@+id/textGameName"
             android:layout_width="0dp"
@@ -49,7 +48,7 @@
             android:paddingEnd="8dp"
             android:text="Game Name" />
 
-        <!-- כפתור צ'אט -->
+
         <ImageButton
             android:id="@+id/chatBtn"
             android:layout_width="48dp"
