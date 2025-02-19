@@ -1,5 +1,5 @@
 package com.example.finalprojectgamemenu.models;
-
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
+
+import androidx.navigation.Navigation;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -131,7 +133,10 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
         });
 
         holder.chatBtn.setOnClickListener(v -> {
-            // כאן אפשר להוסיף מעבר לצ'אט
+            Bundle argsBundle = new Bundle();
+            argsBundle.putString("gameChannel",game.getgName());
+            Navigation.findNavController(holder.itemView).navigate(R.id.action_exploreGamesfrag_to_chatfrag, argsBundle);
+
         });
     }
 
