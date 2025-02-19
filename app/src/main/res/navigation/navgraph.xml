@@ -53,7 +53,8 @@
         tools:layout="@layout/explore_gamesfrag" >
         <action
             android:id="@+id/action_exploreGamesfrag_to_chatfrag"
-            app:destination="@id/chatfrag" />
+            app:destination="@id/chatfrag"
+            />
     </fragment>
     <fragment
         android:id="@+id/favoritesfrag"

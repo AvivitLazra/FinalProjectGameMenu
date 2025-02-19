@@ -31,7 +31,7 @@ public class ExploreGamesfrag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         String[] gameNames = {
-                "Game Logo", "Sports World", "Cheese Bites", "Witch Craft", "Cloud Soccer",
+                "Avivit Al A BIT", "Sports World", "Cheese Bites", "Witch Craft", "Cloud Soccer",
                 "Space Racer", "Galaxy Frogs", "Vikings Go Berzerk", "Candy Crushers", "Sunday Party",
                 "Royal Palace", "Galaxy Frogs", "Racing Club", "Neon Noir", "Pumpkin Smash",
                 "Double Dragons", "Reptoids", "Power Plant", "Trolls Bridge", "Super Heroes"

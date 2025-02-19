@@ -45,9 +45,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         }
     }
 
-    public static interface onCardContentClickListener{
-        void onCardButtonClick(PackagedUser friendDetails, View cardView);
-    }
+//    public static interface onCardContentClickListener{
+//        void onCardButtonClick(PackagedUser friendDetails, View cardView);
+//    }
 
     @NonNull
     @Override

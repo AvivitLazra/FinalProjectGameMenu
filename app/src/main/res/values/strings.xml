@@ -23,5 +23,8 @@
     <string name="add_friend_popup_hint">Enter friend\'s name</string>
     <string name="card_game_btn">Chat now</string>
     <string name="game_name">Game Name</string>
+    <string name="chatTitle">%s channel</string>
+    <string name="chat_sendButtonText">Send</string>
+    <string name="chat_msgFieldHint">Enter message here...</string>
 
 </resources>

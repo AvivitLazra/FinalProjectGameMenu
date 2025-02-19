@@ -1,12 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/chat"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".fragments.Chatfrag">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/chat_TestTitle"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:shadowColor="#CCFFFFFF"
+        android:shadowDx="0.5"
+        android:shadowDy="0.5"
+        android:shadowRadius="15"
+        android:text="Dummy channel"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.90"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:paddingBottom="0dp"
+        >
+
+        <EditText
+            android:id="@+id/chat_editMsgField"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="text"
+            android:background="@drawable/input_box_design"
+            android:hint="@string/chat_msgFieldHint"
+            android:textColor="@color/white"
+            android:textColorHint="@color/text_input_hint"
+            android:paddingLeft="10dp"/>
+
+        <Button
+            android:id="@+id/chat_sendMsgBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_screen_btn"
+            android:text="@string/chat_sendButtonText"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
 
 
-</FrameLayout>
+</LinearLayout>
+
