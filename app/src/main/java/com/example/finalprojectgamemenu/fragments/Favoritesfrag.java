@@ -29,11 +29,10 @@ public class Favoritesfrag extends Fragment {
     private RecyclerView recyclerView;
     private GamesAdapter adapter;
     private List<Games> favoriteGamesList;
-    private DatabaseReference usersRef;
+    private DatabaseReference favoritesRef;
     private String firebaseUid;
 
     public Favoritesfrag() {
-        // Required empty public constructor
     }
 
     @Override
@@ -41,17 +40,20 @@ public class Favoritesfrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favoritesfrag, container, false);
 
+        // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Initialize game list and adapter
         favoriteGamesList = new ArrayList<>();
-        adapter = new GamesAdapter(favoriteGamesList, true); // ✅ שולחים true כדי לאפשר מחיקה ברשימת המועדפים
+        adapter = new GamesAdapter(favoriteGamesList, true); // 'true' enables delete mode in favorites list
         recyclerView.setAdapter(adapter);
 
+        // Get the currently logged-in user's Firebase UID
         firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        usersRef = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
 
-        // מחפש את ה-Random ID של המשתמש המחובר
+        // Retrieve the correct User ID (randomly generated key) from Firebase
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -59,27 +61,11 @@ public class Favoritesfrag extends Fragment {
                     String storedUserId = userSnapshot.child("userId").getValue(String.class);
 
                     if (storedUserId != null && storedUserId.equals(firebaseUid)) {
-                        String randomUserId = userSnapshot.getKey();
-                        DatabaseReference favoritesRef = usersRef.child(randomUserId).child("favorites");
+                        String UserId = userSnapshot.getKey();
+                        favoritesRef = usersRef.child(UserId).child("favorites");
 
-                        favoritesRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                favoriteGamesList.clear();
-                                for (DataSnapshot gameSnapshot : snapshot.getChildren()) {
-                                    Games game = gameSnapshot.getValue(Games.class);
-                                    if (game != null) {
-                                        favoriteGamesList.add(game);
-                                    }
-                                }
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("Favoritesfrag", "Database Error: " + error.getMessage());
-                            }
-                        });
+                        // Load the user's favorite games
+                        loadFavorites();
                         break;
                     }
                 }
@@ -92,5 +78,39 @@ public class Favoritesfrag extends Fragment {
         });
 
         return view;
+    }
+
+    /**
+     * Loads the user's favorite games from Firebase and updates the RecyclerView.
+     */
+    private void loadFavorites() {
+        if (favoritesRef == null) return; // Prevents crashes if reference is not initialized
+
+        favoritesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Games> updatedList = new ArrayList<>();
+
+                // Iterate through the data snapshot to retrieve all favorite games
+                for (DataSnapshot gameSnapshot : snapshot.getChildren()) {
+                    Games game = gameSnapshot.getValue(Games.class);
+                    if (game != null) {
+                        updatedList.add(game);
+                    }
+                }
+
+                // Delay updating the RecyclerView to ensure Firebase synchronization
+                recyclerView.postDelayed(() -> {
+                    favoriteGamesList.clear();
+                    favoriteGamesList.addAll(updatedList);
+                    adapter.notifyDataSetChanged(); // Refresh RecyclerView
+                }, 300);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Favoritesfrag", "Database Error: " + error.getMessage());
+            }
+        });
     }
 }
