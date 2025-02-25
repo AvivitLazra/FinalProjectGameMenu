@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,7 @@ public class Favoritesfrag extends Fragment {
         // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // Initialize game list and adapter
         favoriteGamesList = new ArrayList<>();
