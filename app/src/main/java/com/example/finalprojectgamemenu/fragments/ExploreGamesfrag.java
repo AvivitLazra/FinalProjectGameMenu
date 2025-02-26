@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,10 +37,10 @@ public class ExploreGamesfrag extends Fragment {
         };
 
         int[] gameImages = {
-                R.drawable.game1, R.drawable.game2, R.drawable.game3, R.drawable.game4, R.drawable.game5,
-                R.drawable.game6, R.drawable.game7, R.drawable.game8, R.drawable.game9, R.drawable.game10,
-                R.drawable.game11, R.drawable.game12, R.drawable.game13, R.drawable.game14, R.drawable.game15,
-                R.drawable.game16, R.drawable.game17, R.drawable.game18, R.drawable.game19, R.drawable.game20
+                R.raw.game1, R.raw.game2, R.raw.game3, R.raw.game4, R.raw.game5,
+                R.raw.game6, R.raw.game7, R.raw.game8, R.raw.game9, R.raw.game10,
+                R.raw.game11, R.raw.game12, R.raw.game13, R.raw.game14, R.raw.game15,
+                R.raw.game16, R.raw.game17, R.raw.game18, R.raw.game19, R.raw.game20
         };
 
         gameList = new ArrayList<>();
@@ -49,7 +48,7 @@ public class ExploreGamesfrag extends Fragment {
             gameList.add(new Games(gameImages[i], gameNames[i]));
         }
 
-        adapter = new GamesAdapter(gameList, false); // ✅ שליחת false כדי לציין שזה מסך המשחקים הרגילים
+        adapter = new GamesAdapter(gameList, false);
         recyclerView.setAdapter(adapter);
 
         return view;

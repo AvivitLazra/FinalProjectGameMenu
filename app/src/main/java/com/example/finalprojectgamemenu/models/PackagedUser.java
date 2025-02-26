@@ -4,7 +4,8 @@ public class PackagedUser {
     private String userName;
     private String UserId;
 
-    public PackagedUser(String userName, String UserId) {
+
+    public PackagedUser(String userName, String UserId){
         this.userName = userName;
         this.UserId = UserId;
     }
@@ -30,4 +31,5 @@ public class PackagedUser {
     public void setUserId(String userId) {
         this.UserId = userId;
     }
+
 }

@@ -13,6 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalprojectgamemenu.R;
+import com.example.finalprojectgamemenu.models.PackagedUser;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,5 +39,12 @@ public class MainActivity extends AppCompatActivity {
         else // Hide password
             passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
+    }
+
+
+
+    //Retrieve data from database via callback interface (since onDataChange is defined as void)
+    public interface DatabaseCallback {
+        void onCallback(ArrayList<PackagedUser> friendList);
     }
 }

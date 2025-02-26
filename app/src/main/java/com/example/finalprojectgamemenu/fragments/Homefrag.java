@@ -71,8 +71,7 @@ public class Homefrag extends Fragment {
         view = inflater.inflate(R.layout.homefrag, container, false);
 
         //Setting user greeting message
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         TextView userGreeting = view.findViewById(R.id.home_userGreeting);
         userGreeting.setText(getString(R.string.home_user_greeting, currentUser.getEmail().split("@")[0]));

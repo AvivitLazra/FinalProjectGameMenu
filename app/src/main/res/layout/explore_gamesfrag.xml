@@ -9,7 +9,20 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
+    <TextView
+        android:id="@+id/exploreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:shadowColor="#E2A0A0A0"
+        android:shadowDx="0.5"
+        android:shadowDy="0.5"
+        android:shadowRadius="15"
+        android:text="Explore Games"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="70sp"
+        android:textStyle="bold" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGames"
         android:layout_width="match_parent"

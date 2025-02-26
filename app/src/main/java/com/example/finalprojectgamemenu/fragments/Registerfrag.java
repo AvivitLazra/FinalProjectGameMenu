@@ -78,10 +78,10 @@ public class Registerfrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.registerfrag, container, false);
+        View view = inflater.inflate(R.layout.registerfrag, container, false);
 
         //Setting register button listener
-        Button register=view.findViewById(R.id.register_register_btn);
+        Button register = view.findViewById(R.id.register_register_btn);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +89,8 @@ public class Registerfrag extends Fragment {
                 String email = ((EditText) view.findViewById(R.id.register_emailAddressField)).getText().toString();
                 String password = ((EditText) view.findViewById(R.id.register_passwordField)).getText().toString();
                 String passwordAuth = ((EditText) view.findViewById(R.id.register_passwordAuthField)).getText().toString();
-                if(!password.equals(passwordAuth)){
+                //Exiting if password field is empty / doesnt match with the other one.
+                if(!password.equals(passwordAuth) || password.isEmpty()){
                     Toast.makeText(getContext(),"Passwords do not match!",Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -99,13 +100,15 @@ public class Registerfrag extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getContext(),"register succeeded ",Toast.LENGTH_LONG).show();
-                                    FirebaseUser newUser = mAuth.getCurrentUser();
-                                    assert newUser != null;
+                                    Toast.makeText(getContext(),"registration succeeded ",Toast.LENGTH_LONG).show();
+                                    // After successful registration, we save the user in our real-time database.
+                                    FirebaseUser newUser = mAuth.getCurrentUser(); assert newUser != null;
                                     registerUserDB(newUser);
+
+                                    //Navigate to home..
                                     Navigation.findNavController(view).navigate(R.id.action_registerfrag_to_homefrag);
                                 } else {
-                                    Toast.makeText(getContext(),"register failed",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(),"registration failed",Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -117,6 +120,7 @@ public class Registerfrag extends Fragment {
         Button showPasswordBtn = view.findViewById(R.id.register_showPasswordBtn);
         Button showPasswordAuthBtn = view.findViewById(R.id.register_showPasswordAuthBtn);
 
+        assert mainRef!=null;
         showPasswordBtn.setOnClickListener(v -> mainRef.togglePassword(view.findViewById(R.id.register_passwordField)));
         showPasswordAuthBtn.setOnClickListener(v -> mainRef.togglePassword(view.findViewById(R.id.register_passwordAuthField)));
 
@@ -124,8 +128,7 @@ public class Registerfrag extends Fragment {
     }
 
     public void registerUserDB(FirebaseUser newUser){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users");
         String userName = newUser.getEmail().split("@")[0];
         String userID = newUser.getUid();
 
@@ -135,7 +138,6 @@ public class Registerfrag extends Fragment {
 
         Log.d("success",
                 "User: "+ packagedUser + " packaged in database successfully.");
-
 
     }
 }

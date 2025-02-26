@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -87,7 +86,7 @@ public class Loginfrag extends Fragment {
         registerBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginfrag_to_registerfrag));
 
         //Set login button listener
-        Button loginBtn =view.findViewById(R.id.login_login_btn);
+        Button loginBtn = view.findViewById(R.id.login_login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,24 +94,27 @@ public class Loginfrag extends Fragment {
                 String email = ((EditText) view.findViewById(R.id.login_emailAddressField)).getText().toString();
                 String password = ((EditText) view.findViewById(R.id.login_passwordField)).getText().toString();
 
+                if(password.isEmpty()){
+                    Snackbar.make(view.getRootView(), "Password field is empty!", Snackbar.LENGTH_LONG ).show();
+                    return;
+                }
+
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(),"login succeeded",Toast.LENGTH_LONG).show();
-
-                                    String usrname = email.split("@")[0];
-                                    Log.d("name print",usrname);
+                                    String username = email.split("@")[0];
+                                    Log.d("name print",username);
                                     Navigation.findNavController(view).navigate(R.id.action_loginfrag_to_homefrag);
-
-
                                 }
                                 else {
-                                    Toast.makeText(getContext(),"login failed",Toast.LENGTH_LONG).show();
-
                                     //Added Snackbar for extra information
-                                    Snackbar candybar= Snackbar.make(view.getRootView(), task.getException().getMessage().toString(),Snackbar.LENGTH_LONG);
+                                    Toast.makeText(getContext(),"login failed",Toast.LENGTH_LONG).show();
+                                    Snackbar candybar = Snackbar.make(view.getRootView(), task.getException().getMessage().toString(),Snackbar.LENGTH_LONG);
+
+                                    // Making snackbar display more lines...
                                     View snackbarView = candybar.getView();
                                     TextView snackbarText = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
                                     snackbarText.setMaxLines(10);
@@ -127,7 +129,10 @@ public class Loginfrag extends Fragment {
         //Setting password visibility button listener
         Button showPasswordBtn = view.findViewById(R.id.login_showPasswordBtn);
         MainActivity mainRef = (MainActivity) getActivity();
-        showPasswordBtn.setOnClickListener(v -> mainRef.togglePassword(view.findViewById(R.id.login_passwordField)));
+        showPasswordBtn.setOnClickListener(v -> {
+            assert mainRef != null;
+            mainRef.togglePassword(view.findViewById(R.id.login_passwordField));
+        });
 
         return view;
     }

@@ -4,9 +4,8 @@ public class Games {
     private String gName;
     private int gImage;
 
-    // ✅ חובה: בנאי ריק כדי ש-Firebase יוכל להמיר נתונים לאובייקטים
     public Games() {
-        // נדרש על ידי Firebase - לא לשנות
+       // Required empty constructor for firebase
     }
 
     public Games(int gImage, String gName) {

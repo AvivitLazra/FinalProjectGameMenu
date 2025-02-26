@@ -26,5 +26,6 @@
     <string name="chatTitle">%s channel</string>
     <string name="chat_sendButtonText">Send</string>
     <string name="chat_msgFieldHint">Enter message here...</string>
+    <string name="favorites_page_title">FAVORITES</string>
 
 </resources>

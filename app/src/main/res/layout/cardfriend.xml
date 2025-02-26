@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/black"
+    android:background="#00FFFFFF"
     android:elevation="6dp"
     android:radius="12dp">
 
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end|bottom"
-
+        android:background="@drawable/card_background"
         android:padding="12dp">
 
         <TextView
@@ -25,6 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/friends_card_name"
+            android:shadowColor="#E2A0A0A0"
+            android:shadowDx="0.5"
+            android:shadowDy="0.5"
+            android:shadowRadius="15"
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:padding="8dp"

@@ -63,9 +63,7 @@ public class Favoritesfrag extends Fragment {
                     String storedUserId = userSnapshot.child("userId").getValue(String.class);
 
                     if (storedUserId != null && storedUserId.equals(firebaseUid)) {
-                        String UserId = userSnapshot.getKey();
-                        favoritesRef = usersRef.child(UserId).child("favorites");
-
+                        favoritesRef = userSnapshot.getRef().child("favorites");
                         // Load the user's favorite games
                         loadFavorites();
                         break;

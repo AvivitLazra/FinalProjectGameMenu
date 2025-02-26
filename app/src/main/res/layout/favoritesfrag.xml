@@ -5,17 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@raw/favorites"
-    android:padding="16dp">
+    >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MY FAVORITES"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#FFFFFF"
-        android:paddingBottom="10dp"/>
+        android:id="@+id/favoritesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:shadowColor="#E2A0A0A0"
+        android:shadowDx="0.5"
+        android:shadowDy="0.5"
+        android:shadowRadius="15"
+        android:text="@string/favorites_page_title"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="70sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavorites"
